@@ -47,14 +47,18 @@ class AuthController {
       const connection = await dbUtils.getDefaultConnection();
       const memberRepo = connection.getRepository(Users)
 
-      const member = await memberRepo
+      const member:any = await memberRepo
         .createQueryBuilder('user')
         .where('user.Email = :Email', { Email })
         .andWhere('user.Role = :Role', { Role: RoleEnum.Admin })
         .getOne();
 
+        if (member?.Role == 2) {
+          return res.status(405).json({ message: 'You are not Admin' });
+        }
+
       if (!member) {
-        return res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ message: 'Member not found' });
       }
 
       if (!member.Password) {
