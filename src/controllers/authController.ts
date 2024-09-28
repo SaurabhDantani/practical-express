@@ -30,8 +30,6 @@ class AuthController {
         return res.status(409).json({ message: 'Email Id exists and verification is sent again' });
       }
       
-      
-      
       const member = memberRepo.create({
         FirstName:firstName,
         LastName:lastName,
@@ -57,8 +55,8 @@ class AuthController {
       host: 'smtp.ethereal.email',
       port: 587,
       auth: {
-          user: 'katheryn.abernathy@ethereal.email',
-          pass: 'AUFWWMX3sUadz91MuA'
+          user: 'kaela.roob@ethereal.email',
+          pass: 'KQ5efw6hDfya3vjrUR'
       }
    });
 
