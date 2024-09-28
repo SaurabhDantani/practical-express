@@ -1,6 +1,6 @@
 import { Request,Response,NextFunction } from "express";
 import dbUtils from "../utils/db.utils";
-import { RoleEnum } from "src/utils/roleEnum";
+import { RoleEnum } from "../utils/roleEnum";
 import { Users } from "../models/Users";
 
 class RegisterController {
@@ -37,7 +37,7 @@ class RegisterController {
               console.log(error);
               return res.status(500).json({ message: "error", error });
           }
-      }
+    }
 }
 
 export default new RegisterController();
