@@ -1,4 +1,4 @@
-export enum TypeEnum {
-  Mainbord = 1,
-  SME = 2,
+export enum RoleEnum {
+  Admin = 1,
+  Customer = 2,
 }

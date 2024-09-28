@@ -15,10 +15,16 @@ export class Users {
 
   
   @Column({ type: 'varchar', length: 100, unique:true })
-  EmailAddress: string;
+  Email: string;
 
   @Column({ type: 'varchar', length: 255, })
   Password: string;
+
+  @Column({ type: 'varchar', length: 100, })
+  Role: string;
+
+  @Column({ type: 'varchar', length: 100, })
+  Otp: string;
 
   @BeforeInsert()
   async hashPassword() {
