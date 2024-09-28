@@ -50,7 +50,7 @@ class AuthController {
       const member:any = await memberRepo
         .createQueryBuilder('user')
         .where('user.Email = :Email', { Email })
-        .andWhere('user.Role = :Role', { Role: RoleEnum.Admin })
+        // .andWhere('user.Role = :Role', { Role: RoleEnum.Admin })
         .getOne();
 
         if (member?.Role == 2) {
