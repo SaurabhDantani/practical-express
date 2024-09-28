@@ -16,6 +16,7 @@ class AuthController {
       // const connection = AppDataSource.getRepository(Users);
       const connection = await dbUtils.getDefaultConnection();
       const memberRepo = connection.getRepository(Users)
+      const verificationToken = crypto.randomBytes(32).toString('hex');
 
       const userExists = await memberRepo
         .createQueryBuilder('user')
@@ -23,9 +24,12 @@ class AuthController {
         .getOne();
 
       if (userExists) {
-        return res.status(409).json({ message: 'Email Id exists' });
+        userExists.VerificationToken = verificationToken
+        await this.sendVerificationEmail(email, verificationToken);
+        return res.status(409).json({ message: 'Email Id exists and verification is sent again' });
       }
-      const verificationToken = crypto.randomBytes(32).toString('hex');
+      
+      
       
       const member = memberRepo.create({
         FirstName:firstName,
