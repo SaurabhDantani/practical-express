@@ -57,7 +57,7 @@ class AuthController {
       }
    });
 
-    const verificationUrl = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
+    const verificationUrl = `https://practical-express.onrender.com/user/verify-email?token=${token}`;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
