@@ -4,6 +4,8 @@ import { Users } from '../models/Users';
 import { RoleEnum } from '../utils/roleEnum';
 import * as bcrypt from 'bcrypt';
 import Jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
+import crypto from 'crypto';
 
 class AuthController {
   async doRegistration(req: Request, res: Response, next: NextFunction) {
@@ -23,21 +25,75 @@ class AuthController {
       if (userExists) {
         return res.status(409).json({ message: 'Email Id exists' });
       }
-
+      const verificationToken = crypto.randomBytes(32).toString('hex');
+      
       const member = memberRepo.create({
         FirstName:firstName,
         LastName:lastName,
         Password: password,
         Email:email,
         Role: currentRole,
+        VerificationToken:verificationToken
       });
 
       await memberRepo.save(member);
 
-      return res.status(200).json('User registered successfully');
+      await this.sendVerificationEmail(email, verificationToken);
+
+      return res.status(200).json('User registered successfully. Please check your email for verification.');
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: 'error', error });
+    }
+  }
+
+  async sendVerificationEmail(email: string, token: string) {
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      auth: {
+          user: 'katheryn.abernathy@ethereal.email',
+          pass: 'AUFWWMX3sUadz91MuA'
+      }
+   });
+
+    const verificationUrl = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: 'Email Verification',
+      html: `<p>Click <a href="${verificationUrl}">here</a> to verify your email.</p>`,
+    };
+
+    await transporter.sendMail(mailOptions);
+  }
+
+  async verifyEmail(req: Request, res: Response, next: NextFunction) {
+    const { token } = req.query;
+
+    try {
+      const connection = await dbUtils.getDefaultConnection();
+      const memberRepo = connection.getRepository(Users);
+
+      const user = await memberRepo
+        .createQueryBuilder('user')
+        .where('user.VerificationToken = :VerificationToken', { VerificationToken:token })
+        .getOne();
+
+      if (!user) {
+        return res.status(400).json({ message: 'Invalid or expired token.' });
+      }
+
+      user.IsVerify = true; 
+      user.VerificationToken = ''; 
+
+      await memberRepo.save(user);
+
+      return res.status(200).json({ message: 'Email verified successfully!' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Error during email verification', error });
     }
   }
 
@@ -52,6 +108,10 @@ class AuthController {
         .where('user.Email = :Email', { Email })
         // .andWhere('user.Role = :Role', { Role: RoleEnum.Admin })
         .getOne();
+
+        if (!member?.IsVerify) {
+          return res.status(300).json({ message: 'Email not verified. Please verify your email.' });
+        }
 
         if (member?.Role == 2) {
           return res.status(405).json({ message: 'You are not Admin' });

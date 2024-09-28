@@ -16,6 +16,10 @@ class AuthRoute implements IRouting {
     app.post(`${this.prefix}/login`, (req: Request, res: Response, next: express.NextFunction) => {
       return AuthController.doLogin(req, res, next);
     });
+
+    app.get(`${this.prefix}/verify-email`, (req: Request, res: Response, next: express.NextFunction) => {
+      return AuthController.verifyEmail(req, res, next);
+    });
     
   }
 }

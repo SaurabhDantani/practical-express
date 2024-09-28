@@ -24,7 +24,10 @@ export class Users {
   Role: string;
 
   @Column({ type: 'bit', default: 0, nullable:true})
-  IsVerify: number;
+  IsVerify: boolean;
+
+  @Column({ type: 'varchar', nullable:true})
+  VerificationToken: string;
 
   @BeforeInsert()
   async hashPassword() {
