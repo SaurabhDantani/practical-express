@@ -3,7 +3,7 @@ import { ExtractJwt, Strategy, StrategyOptions } from "passport-jwt";
 import * as dotenv from 'dotenv';
 import { JwtPayload } from "jsonwebtoken";
 import dbUtils from "./db.utils";
-import { AdminLogins } from "../models/AdminLogin";
+import { AdminLogins } from "../models/Users";
 
 dotenv.config();
 

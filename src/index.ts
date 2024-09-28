@@ -6,7 +6,7 @@ import passport from './utils/passport';
 import dbUtils from './utils/db.utils';
 import * as routes from "./routes";
 import http from 'http'
-const port = 3000
+const port = 8080
 
 const app: Express = express();
 const server = http.createServer(app);

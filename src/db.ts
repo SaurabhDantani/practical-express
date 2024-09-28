@@ -1,9 +1,8 @@
-import { Ipo } from './models/Ipo';
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { Users } from './models/Users';
 
 import dotenv from 'dotenv';
+import { Users } from './models/Users';
 dotenv.config();
 
 const dbHost = process.env.DB_HOST;
@@ -24,8 +23,7 @@ export const dataSource = new DataSource({
     migrationsRun: false,
     logging: false,
     entities: [
-        Ipo,
-        Users,
+        Users
     ],
     migrations: ["src/migration/**/*.ts"],
 });
