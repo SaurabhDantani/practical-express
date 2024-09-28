@@ -25,6 +25,7 @@ class AuthController {
 
       if (userExists) {
         userExists.VerificationToken = verificationToken
+        await memberRepo.save(userExists);
         await this.sendVerificationEmail(email, verificationToken);
         return res.status(409).json({ message: 'Email Id exists and verification is sent again' });
       }
@@ -80,7 +81,7 @@ class AuthController {
       const connection = await dbUtils.getDefaultConnection();
       const memberRepo = connection.getRepository(Users);
 
-      const user = await memberRepo
+      const user:any = await memberRepo
         .createQueryBuilder('user')
         .where('user.VerificationToken = :VerificationToken', { VerificationToken:token })
         .getOne();
@@ -90,7 +91,7 @@ class AuthController {
       }
 
       user.IsVerify = true; 
-      user.VerificationToken = ''; 
+      user.VerificationToken = null; 
 
       await memberRepo.save(user);
 
