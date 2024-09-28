@@ -13,7 +13,6 @@ class AuthController {
     let currentRole: any = role === 'Admin' ? RoleEnum.Admin : RoleEnum.Customer;
 
     try {
-      // const connection = AppDataSource.getRepository(Users);
       const connection = await dbUtils.getDefaultConnection();
       const memberRepo = connection.getRepository(Users)
       const verificationToken = crypto.randomBytes(32).toString('hex');
@@ -25,6 +24,7 @@ class AuthController {
 
       if (userExists) {
         userExists.VerificationToken = verificationToken
+        userExists.IsVerify = false;
         await memberRepo.save(userExists);
         await this.sendVerificationEmail(email, verificationToken);
         return res.status(409).json({ message: 'Email Id exists and verification is sent again' });
