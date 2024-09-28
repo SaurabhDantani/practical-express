@@ -7,7 +7,7 @@ import Jwt from 'jsonwebtoken';
 
 class AuthController {
   async doRegistration(req: Request, res: Response, next: NextFunction) {
-    const { firstName, lastName, role, password, email } = req.body;
+    const { email,firstName,lastName,password,role } = req.body;
     let currentRole: any = role === 'Admin' ? RoleEnum.Admin : RoleEnum.Customer;
 
     try {
@@ -17,7 +17,7 @@ class AuthController {
 
       const userExists = await memberRepo
         .createQueryBuilder('user')
-        .where('user.Email = :Email', { email })
+        .where('user.Email = :Email', { Email:email })
         .getOne();
 
       if (userExists) {
@@ -43,7 +43,6 @@ class AuthController {
 
   async doLogin(req: Request, res: Response, next: NextFunction) {
     const { Email, Password } = req.body;
-debugger
     try {
       const connection = await dbUtils.getDefaultConnection();
       const memberRepo = connection.getRepository(Users)
