@@ -109,7 +109,12 @@ class AuthController {
         // .andWhere('user.Role = :Role', { Role: RoleEnum.Admin })
         .getOne();
 
-        if (!member?.IsVerify) {
+
+        if (!member) {
+          return res.status(404).json({ message: 'Member not found' });
+        }
+
+        if (member?.IsVerify == false) {
           return res.status(300).json({ message: 'Email not verified. Please verify your email.' });
         }
 
@@ -117,9 +122,6 @@ class AuthController {
           return res.status(405).json({ message: 'You are not Admin' });
         }
 
-      if (!member) {
-        return res.status(404).json({ message: 'Member not found' });
-      }
 
       if (!member.Password) {
         return res.status(401).json({ message: 'Password not set' });
