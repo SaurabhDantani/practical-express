@@ -23,12 +23,12 @@ app.use(passport.initialize());
 // Register routes
 routes.registerRoutes(app);
 
-// const conn: any = dbUtils.init();
-// if (conn) {
-//   console.log("Database Connected...........");
-// } else {
-//   console.log("Not Connected.....");
-// }
+const conn: any = dbUtils.init();
+if (conn) {
+  console.log("Database Connected...........");
+} else {
+  console.log("Not Connected.....");
+}
 
 app.get("/",(req,res)=> {
   res.json({message:"working correctly"})
