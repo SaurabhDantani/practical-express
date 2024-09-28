@@ -1,0 +1,134 @@
+<%- include('../navbar/sidebar') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../public/css/dashboard.css" type="text/css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <title>Registar</title>
+</head>
+
+<body>
+  <div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+      <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+          <div class="main-body">
+            <div class="page-wrapper">
+              <div class="page-header">
+                <div class="page-block">
+                  <div class="row align-items-center">
+                    <div class="col-md-12">
+                      <div class="page-header-title">
+                        <h5 class="m-b-10">Registrar listing</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-12">
+                <div class="card">
+                  <div class="card-header">
+                    <%- include('../forms/createRegistrar.ejs') %>
+                  </div>
+                  <div class="card-body table-border-style">
+                    <div class="table-responsive">
+                      <table class="table ">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>IpoEmail</th>
+                            <th>Website</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody id="data-table-body">
+                          <% registar.forEach(function(data) { %>
+                            <tr>
+                              <td><%= data.RegistrarName || 'N/A' %></td>
+                              <td><%= data.RegistrarPhone || 'N/A' %></td>
+                              <td><%= data.RegistrarEmail || 'N/A' %></td>
+                              <td><%= data.RegistrarIpoEmail || 'N/A' %></td>
+                              <td><%= data.RegistrarWebsite || 'N/A' %></td>
+                              <td class="d-flex align-items-center">
+                                <button
+                                  type="button"
+                                  class="btn  btn-link p-0"
+                                  data-toggle="modal"
+                                  data-target="#updateMasterRegistrar<%= data.RegistrarId %>"
+                                >
+                                <i class="fa fa-eye" style="border: none; color: blue; cursor: pointer;"></i>
+                                </button>
+
+                              <button
+                                type="button"
+                                class="btn  btn-link p-0 delete-btn"
+                                data-id="<%= data.RegistrarId %>"
+                                data-toggle="modal"
+                                data-target="#deleteMasterRegistrar"
+                              >
+                              <i class="fa fa-trash" style="border: none; color: blue; cursor: pointer;"></i>
+                              </button>
+
+                              </td>
+                            </tr>
+                            <%- include('../forms/updateMasterRegistrar.ejs', {registrar: data}) %>
+                          <% }) %>
+                        </tbody>
+                      </table>
+                      <nav>
+                        <ul class="pagination" id="pagination-controls">
+                          <!-- Pagination buttons will be inserted here -->
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- for delete confirmation -->
+  <div class="modal fade" id="deleteMasterRegistrar" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="delete-form" method="POST" action="/registar/delete">
+          <div class="modal-body">
+            Are you sure you want to delete this item?
+            <input type="hidden" name="RegistrarId" id="delete-id" value="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- end delete confirmation -->
+
+  <script>
+    document.querySelectorAll('.delete-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const id = this.getAttribute('data-id');
+        document.getElementById('delete-id').value = id;
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<script>
+  function handler(e) {
+    document.getElementById('dateForm').submit();
+  }
+</script>
+
+<!-- [ Time Line ] start -->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header d-flex">
+      <h3>Time Line</h3>
+      <% if (ipoDetailsQuery.isBeforeCutoffDate) { %>
+      <label class="ml-auto" style="font-size: x-large; margin-top: 1.2%;" onclick="syncTimeLine()">
+        <i class="fa fa-sync" style="border: none; color: blue; cursor: pointer;"></i>
+      </label>
+      <% } %>
+    </div>
+    <div class="card-body table-border-style">
+      <div class="table-responsive">
+        <form id="dateForm" action="/ipoDetail/updateTimeLineDate" method="post">
+          <input type="hidden" name="TimelineId" value="<%= ipoDetailsQuery.TimeLine?.TimelineId %>">
+          <table class="table table-hover">
+            <tbody>
+              <% if (ipoDetailsQuery?.TimeLine) { %>
+              <tr>
+                <th>Start Date</th>
+                <td><%= ipoDetailsQuery.TimeLine.StartDate ? ipoDetailsQuery.TimeLine.StartDate : 'N/A' %></td>
+                <td>
+                  <% if(ipoDetailsQuery.isBeforeCutoffDate) { %>
+                    <input type="date" name="StartDate" onchange="handler(event)" id="StartDate">
+                  <% } %>
+                </td>
+              </tr>
+              <tr>
+                <th>End Date</th>
+                <td><%= ipoDetailsQuery.TimeLine.EndDate ? ipoDetailsQuery.TimeLine.EndDate : 'N/A' %></td>
+                <td>
+                  <% if(ipoDetailsQuery.isBeforeCutoffDate) { %>
+                    <input type="date" name="EndDate" onchange="handler(event)" id="EndDate">
+                  <% } %>
+                </td>
+              </tr>
+              <tr>
+                <th>Allotment Date</th>
+                <td><%= ipoDetailsQuery.TimeLine.AllotmentDate ? ipoDetailsQuery.TimeLine.AllotmentDate : 'N/A' %></td>
+                <td>
+                  <% if(ipoDetailsQuery.isBeforeCutoffDate) { %>
+                    <input type="date" name="AllotmentDate" onchange="handler(event)" id="AllotmentDate">
+                  <% } %>
+                </td>
+              </tr>
+              <tr>
+                <th>Refund Date</th>
+                <td><%= ipoDetailsQuery.TimeLine.RefundDate ? ipoDetailsQuery.TimeLine.RefundDate : 'N/A' %></td>
+                <td>
+                  <% if(ipoDetailsQuery.isBeforeCutoffDate) { %>
+                    <input type="date" name="RefundDate" onchange="handler(event)" id="RefundDate">
+                  <% } %>
+                </td>
+              </tr>
+              <tr>
+                <th>Credit Share Date</th>
+                <td><%= ipoDetailsQuery.TimeLine.CreditShareDate ? ipoDetailsQuery.TimeLine.CreditShareDate : 'N/A' %></td>
+                <td>
+                  <% if(ipoDetailsQuery.isBeforeCutoffDate) { %>
+                    <input type="date" name="CreditDate" onchange="handler(event)" id="CreditDate">
+                  <% } %>
+                </td>
+              </tr>
+              <tr>
+                <th>Listing Date</th>
+                <td><%= ipoDetailsQuery.TimeLine.ListingDate ? ipoDetailsQuery.TimeLine.ListingDate : 'N/A' %></td>
+                <td>
+                  <% if(ipoDetailsQuery.isBeforeCutoffDate) { %>
+                    <input type="date" name="ListingDate" onchange="handler(event)" id="ListingDate">
+                  <% } %>
+                </td>
+              </tr>
+              <% } else { %>
+              <tr>
+                <td colspan="2">No timeline details available.</td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loader -->
+  <%- include('../ui/loader.ejs') %>
+  <%- include('../ui/toaster.ejs') %>
+
+
+
+<script>
+async function syncTimeLine() {
+  const loader = document.getElementById('loader');
+  loader.classList.remove('d-none');
+  const ipoDetails = {
+      IpoId: '<%= ipoDetailsQuery.IpoId %>',
+      ChitorName: '<%= ipoDetailsQuery.ChitorName %>',
+      ChitorId: '<%= ipoDetailsQuery.ChitorId %>',
+  };
+
+  try {
+      const response = await fetch('/scraper/syncTimeLine', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(ipoDetails),
+      });
+
+      const result = await response.json();
+      console.log('Response data:', result);
+
+      if (response.status === 200) {        
+        renderToast('Sync successful', 'success');    
+        reloadFun()
+      } else {
+        renderToast(result.error || 'Sync failed', 'error');
+        console.log(`Sync failed: ${result.error || 'Unknown error'}`, 'error');
+      }
+  } catch (error) {
+      renderToast('Sync failed', 'error');
+  } finally {
+      loader.classList.add('d-none');
+  }
+}
+
+
+</script>
+
+<!--  -->
+</style>
+<!-- [ Time Line ] end -->

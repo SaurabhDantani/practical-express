@@ -1,0 +1,195 @@
+<link rel="stylesheet" href="/public/css/forms/forms.css" type="text/css">
+<button
+  type="button"
+  class="btn btn-primary btn-sm"
+  data-toggle="modal"
+  data-target="#myModal"
+>
+  Add Ipo
+</button>
+
+<div
+  class="modal fade"
+  id="myModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Fill IPO Data</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addIpoForm" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="companyName">Company Name <span class="text-danger" style="font-size: 1.50rem;">*</span></label>
+                <input
+                  name="companyName"
+                  type="text"
+                  class="form-control"
+                  id="companyName"
+                  placeholder="Enter company name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="displayName">Display Name <span class="text-danger" style="font-size: 1.50rem;">*</span></label>
+                <input
+                  name="displayName"
+                  type="text"
+                  class="form-control"
+                  id="displayName"
+                  placeholder="Enter display name"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="urlName">Url Name <span class="text-danger" style="font-size: 1.50rem;">*</span></label>
+                <input
+                  name="urlName"
+                  type="text"
+                  class="form-control"
+                  id="urlName"
+                  placeholder="Enter url name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="symbols">Symbols</label>
+                <input
+                  name="symbols"
+                  type="text"
+                  class="form-control"
+                  id="symbols"
+                  placeholder="Enter symbols"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">          
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="type">Type</label>
+                <select name="type" class="form-control" id="type">
+                  <option selected value="1">Mainline</option>
+                  <option value="2">SME</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inversterId">Inverster Id</label>
+                <input
+                  name="inversterId"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter inverster Id"
+                />
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exchanged">Exchanged</label>
+                <select name="exchanged" class="form-control" id="exchanged">                  
+                  <option selected value="1">NSE</option>
+                  <option value="2">BSE</option>
+                  <option value="3">BOTH</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="chittorName">Chittor Name</label>
+                <input
+                  name="chittorName"
+                  type="text"
+                  class="form-control"
+                  id="chittorName"
+                  placeholder="Enter chittor name"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="bseid">Bse Id </label>
+                <input
+                  name="bseid"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter chittor id"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="chittorId">Chittor Id</label>
+                <input
+                  name="chittorId"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter chittor id"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="premiumId">Premium Id</label>
+                <input
+                  name="premiumId"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter premium id"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Retail Quota</label>
+                <select name="RetailQuota" class="form-control">
+                  <option selected value="1">35 %</option>
+                  <option value="2">10 %</option>
+                </select>
+              </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<!-- views/ui/toaster.ejs -->
+<div class="toast-container" style="position: fixed; top: 90px; right: 20px; z-index: 1000;"></div>
+
+<style>
+/* Toast container */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* Toast style */
+.toast {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(45deg, #333, #444);
+    color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    transform: translateX(100%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Show the toast */
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Toast icon */
+.toast .icon {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.toast.success {
+    background: linear-gradient(45deg, #28a745, #218838);
+}
+
+.toast.error {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+}
+
+.toast.success .icon {
+    color: #28a745;
+}
+
+.toast.error .icon {
+    color: #dc3545;
+}
+</style>
+
+<script>
+    function renderToast(toastMessage, toastType = 'success') {
+        const toastContainer = document.querySelector('.toast-container');
+        const toast = document.createElement('div');
+        const icon = document.createElement('span');
+
+        icon.className = 'icon';
+        icon.innerHTML = toastType === 'success' ? '&#x2714;' : '&#x2716;'; // Checkmark for success, cross for error
+
+        toast.className = `toast show ${toastType}`;
+        toast.innerText = toastMessage;
+        toast.insertBefore(icon, toast.firstChild);
+
+        toastContainer.appendChild(toast);
+
+        // Hide the toast after 3 seconds
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                toast.remove();
+            }, 400);
+        }, 3000);
+    }
+</script>

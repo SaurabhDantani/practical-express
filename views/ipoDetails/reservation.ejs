@@ -1,0 +1,268 @@
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header d-flex">
+      <h3>Reservation</h3>
+      
+      <% if (ipoDetailsQuery.isBeforeCutoffDate) { %>          
+        <%- include('../forms/editReservation.ejs', { IpoData: ipoDetailsQuery }) %>
+  
+        <label class="ml-auto" style="font-size: x-large; margin-top: 1.2%;" onclick="syncReservation()">
+          <i class="fa fa-sync" style="border: none; color: blue; cursor: pointer;"></i>
+        </label>
+      <% } %>
+    </div>
+    <div class="card-body table-border-style">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Investor Category</th>
+              <th>Shares Offered</th>
+              <th>Maximum Allottees</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (ipoDetailsQuery.Type == 1) { %>
+
+              <!-- IpoTypeEnum conditions  end -->
+              <% if (ipoDetailsQuery.IpoDetail?.IpoType == 1) { %>
+                <tr>
+                  <td>Anchor Investor Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.AnchorInvestorSharesOffer ? ipoDetailsQuery.Reservation.AnchorInvestorSharesOffer.toLocaleString('en-IN') : 'N/A' %><br>
+                    (<%= ipoDetailsQuery?.Reservation?.AnchorInvestorSharesOffer ? (ipoDetailsQuery.Reservation.AnchorInvestorSharesOffer / ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>QIB Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.QibSharesOffer ? ipoDetailsQuery?.Reservation.QibSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.QibSharesOffer ? (ipoDetailsQuery.Reservation.QibSharesOffer / ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>HNI Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.NiiSharesOffer ? ipoDetailsQuery?.Reservation?.NiiSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.NiiSharesOffer ? (ipoDetailsQuery.Reservation.NiiSharesOffer / ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>B-HNI > 10L</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.BniiSharesOffer ? ipoDetailsQuery.Reservation.BniiSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.BniiSharesOffer ? (ipoDetailsQuery.Reservation.BniiSharesOffer / ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>              
+                  <td><%= ipoDetailsQuery?.Reservation?.BniiMaximumAllotment ? ipoDetailsQuery.Reservation.BniiMaximumAllotment.toLocaleString('en-IN') : 'N/A' %></td>
+                </tr>
+
+                <tr>
+                  <td>S-HNI < 10L</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.SniiSharesOffer ? ipoDetailsQuery?.Reservation?.SniiSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.SniiSharesOffer ? (ipoDetailsQuery?.Reservation?.SniiSharesOffer / ipoDetailsQuery?.Reservation?.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                  <td><%= ipoDetailsQuery?.Reservation?.SniiMaximumAllotment ? ipoDetailsQuery?.Reservation?.SniiMaximumAllotment.toLocaleString('en-IN') : 'N/A' %></td>
+                </tr>
+
+                <tr>
+                  <td>Retail Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.RetailSharesOffer ? ipoDetailsQuery?.Reservation?.RetailSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.RetailSharesOffer ? (ipoDetailsQuery.Reservation.RetailSharesOffer / ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.RetailMaximumAllotment ? ipoDetailsQuery?.Reservation?.RetailMaximumAllotment.toLocaleString('en-IN') : 'N/A' %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Total Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.TotalSharesOffer ? ipoDetailsQuery?.Reservation?.TotalSharesOffer.toLocaleString('en-IN') : 'N/A' %><br>
+                    (<%= ipoDetailsQuery?.Reservation?.TotalSharesOffer ? (ipoDetailsQuery.Reservation.TotalSharesOffer / ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                </tr>
+              <% } else { %> 
+                <tr>
+                  <td>HNI Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.NiiSharesOffer ? ipoDetailsQuery?.Reservation?.NiiSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.NiiSharesOffer ? (ipoDetailsQuery.Reservation.NiiSharesOffer /ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                  <td><%= ipoDetailsQuery?.Reservation?.NiiMaximumAllotment ? ipoDetailsQuery.Reservation.NiiMaximumAllotment : 'N/A' %></td>
+                </tr>
+
+                <tr>
+                  <td>Retail Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.RetailSharesOffer ? ipoDetailsQuery?.Reservation?.RetailSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.RetailSharesOffer ? (ipoDetailsQuery.Reservation.RetailSharesOffer / ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.RetailMaximumAllotment ? ipoDetailsQuery?.Reservation?.RetailMaximumAllotment.toLocaleString('en-IN') : 'N/A' %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Total Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.TotalSharesOffer ? ipoDetailsQuery?.Reservation?.TotalSharesOffer.toLocaleString('en-IN') : 'N/A' %><br>
+                    (<%= ipoDetailsQuery?.Reservation?.TotalSharesOffer ? (ipoDetailsQuery.Reservation.TotalSharesOffer / ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                </tr>
+              <% } %>
+                <!-- IpoTypeEnum conditions  end-->
+
+            <% } else { %>
+
+              <% if (ipoDetailsQuery.IpoDetail?.IpoType == 1) {%>
+
+                <tr>
+                  <td>Anchor Investor Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.AnchorInvestorSharesOffer ? ipoDetailsQuery.Reservation.AnchorInvestorSharesOffer.toLocaleString('en-IN') : 'N/A' %><br>
+                    (<%= ipoDetailsQuery?.Reservation?.AnchorInvestorSharesOffer ? (ipoDetailsQuery.Reservation.AnchorInvestorSharesOffer /ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Market Maker Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.MarketMakersSharesOffer ? ipoDetailsQuery?.Reservation.MarketMakersSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.MarketMakersSharesOffer ? (ipoDetailsQuery.Reservation.MarketMakersSharesOffer /ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>QIB Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.QibSharesOffer ? ipoDetailsQuery?.Reservation?.QibSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.QibSharesOffer ? (ipoDetailsQuery.Reservation.QibSharesOffer /ipoDetailsQuery.Reservation.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>HNI Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.NiiSharesOffer ? ipoDetailsQuery?.Reservation?.NiiSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.NiiSharesOffer ? (ipoDetailsQuery.Reservation?.NiiSharesOffer /ipoDetailsQuery.Reservation?.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                  <td><%= ipoDetailsQuery?.Reservation?.NiiMaximumAllotment ? ipoDetailsQuery.Reservation?.NiiMaximumAllotment : 'N/A' %></td>
+                </tr>
+
+                <tr>
+                  <td>Retail Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.RetailSharesOffer ? ipoDetailsQuery?.Reservation?.RetailSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.RetailSharesOffer ? (ipoDetailsQuery.Reservation?.RetailSharesOffer /ipoDetailsQuery.Reservation?.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.RetailMaximumAllotment ? ipoDetailsQuery?.Reservation?.RetailMaximumAllotment.toLocaleString('en-IN') : 'N/A' %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Total Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.TotalSharesOffer ? ipoDetailsQuery?.Reservation?.TotalSharesOffer.toLocaleString('en-IN') : 'N/A' %><br>
+                    (<%= ipoDetailsQuery?.Reservation?.TotalSharesOffer ? (ipoDetailsQuery.Reservation?.TotalSharesOffer /ipoDetailsQuery.Reservation?.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                </tr>
+
+              <%} else {%>
+                <tr>
+                  <td>Market Maker Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.MarketMakersSharesOffer ? ipoDetailsQuery?.Reservation?.MarketMakersSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.MarketMakersSharesOffer ? (ipoDetailsQuery.Reservation?.MarketMakersSharesOffer /ipoDetailsQuery.Reservation?.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                </tr>
+  
+                <tr>
+                  <td>HNI Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.NiiSharesOffer ? ipoDetailsQuery?.Reservation?.NiiSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.NiiSharesOffer ? (ipoDetailsQuery.Reservation?.NiiSharesOffer /ipoDetailsQuery.Reservation?.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                  <td><%= ipoDetailsQuery?.Reservation?.NiiMaximumAllotment ? ipoDetailsQuery.Reservation?.NiiMaximumAllotment : 'N/A' %></td>
+                </tr>
+  
+                <tr>
+                  <td>Retail Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.RetailSharesOffer ? ipoDetailsQuery?.Reservation?.RetailSharesOffer.toLocaleString('en-IN') : 'N/A' %> <br>
+                    (<%= ipoDetailsQuery?.Reservation?.RetailSharesOffer ? (ipoDetailsQuery.Reservation?.RetailSharesOffer /ipoDetailsQuery.Reservation?.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.RetailMaximumAllotment ? ipoDetailsQuery?.Reservation?.RetailMaximumAllotment.toLocaleString('en-IN') : 'N/A' %>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <td>Total Shares Offered</td>
+                  <td>
+                    <%= ipoDetailsQuery?.Reservation?.TotalSharesOffer ? ipoDetailsQuery?.Reservation?.TotalSharesOffer.toLocaleString('en-IN') : 'N/A' %><br>
+                    (<%= ipoDetailsQuery?.Reservation?.TotalSharesOffer ? (ipoDetailsQuery.Reservation?.TotalSharesOffer /ipoDetailsQuery.Reservation?.TotalSharesOffer * 100).toFixed(2) + '%' : 'N/A' %>)
+                  </td>
+                </tr>
+              <%}%>
+              <!-- Handle other Types or a fallback message -->
+
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loader -->
+  <%- include('../ui/loader.ejs') %>
+  <%- include('../ui/toaster.ejs') %>
+
+<script>
+async function syncReservation() {
+  const loader = document.getElementById('loader');
+  loader.classList.remove('d-none');
+  const ipoDetails = {
+      IpoId: '<%= ipoDetailsQuery.IpoId %>',
+      ChitorName: '<%= ipoDetailsQuery.ChitorName %>',
+      ChitorId: '<%= ipoDetailsQuery.ChitorId %>',
+
+      
+      IsSme: '<%= ipoDetailsQuery.Type %>',
+  };
+
+  try {
+      const response = await fetch('/scraper/syncReservation', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(ipoDetails),
+      });
+
+      const result = await response.json();
+      if (response.status === 200) {        
+        renderToast('Sync successful', 'success');    
+        reloadFun()
+      } else {
+        renderToast(result.error || 'Sync failed', 'error');
+        console.log(`Sync failed: ${result.error || 'Unknown error'}`, 'error');
+      }
+  } catch (error) {
+      renderToast('Sync failed', 'error');
+  } finally {
+      loader.classList.add('d-none');
+  }
+}
+
+
+</script>
+
+<!--  -->
+</style>

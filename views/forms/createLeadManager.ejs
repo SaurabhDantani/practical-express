@@ -1,0 +1,115 @@
+<link rel="stylesheet" href="/public/css/forms/forms.css" type="text/css">
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#createMasterLeadManager"
+  style="height: 1%; margin-left: 2%;"
+>
+  Add
+</button>
+
+<div
+  class="modal fade"
+  id="createMasterLeadManager"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="editDetailModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editDetailModalLabel">Add lead Manager</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          style="height: 1%; margin-left: 5%;"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/leadManager/create" method="POST">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="RegistrarName">Name</label>
+                <input
+                  name="ManagerName"
+                  required
+                  type="text"
+                  class="form-control"                          
+                  placeholder="Enter Name"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="Website">Phone</label>
+                <input 
+                  name="Phone"                  
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Phone"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Email</label>
+                <input
+                  name="Email"                  
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Email"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="RegistrarIpoEmail">Website</label>
+                <input
+                  name="Website"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Website"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lotSize">Fax</label>
+                <input
+                  name="Fax"
+                  
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Fax"
+                />
+              </div>
+            </div>
+
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

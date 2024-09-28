@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="/public/css/forms/forms.css" type="text/css">
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#editNoReservetion"
+  style="height: 1%; margin-left: 2%;"
+>
+  Edit
+</button>
+
+<div
+  class="modal fade"
+  id="editNoReservetion"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="editDetailModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editDetailModalLabel">Edit Detail</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          style="height: 1%; margin-left: 5%;"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addIpoForm" action="/ipoDetail/updateNoReservetion" method="POST">
+            
+            <input type="hidden" name="IpoId"value="<%= IpoData.IpoId %>">
+            <input type="hidden" name="NoReservationId"value="<%= IpoData.NoReservations?.NoReservationId %>">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>QIB Shares Offered</label>
+                <input
+                  name="QibSharesOffer"
+                  value="<%- IpoData.NoReservations?.QibSharesOffer %>"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter QIB Shares Offered"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Retail Shares Offered</label>
+                <input
+                  name="RetailSharesOffer"
+                  value="<%- IpoData.NoReservations?.RetailSharesOffer %>"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Retail Shares Offered"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>NII (HNI) Shares Offered</label>
+                <input
+                  name="NiiSharesOffer"
+                  value="<%- IpoData.NoReservations?.NiiSharesOffer %>"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter face value"
+                />
+              </div>
+              </div>        
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

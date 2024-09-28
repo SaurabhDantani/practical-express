@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPO Details</title>
+  <script src="https://cdn.tiny.cloud/1/tms5nz4tx0wpvv3it5t7o7p06hjtq88aztcneu6nb58h8le9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <link rel="stylesheet" href="/public/css/forms/forms.css" type="text/css">
+</head>
+
+<body>
+  <script>
+    tinymce.init({
+      selector: '.tinymce-editor',
+      plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+      toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+      toolbar_mode: 'floating',
+    });
+
+    function cancelEdit(editorId) {
+      tinymce.get(editorId).setContent('');
+    }
+    $(document).ready(function() {
+      $('#objectivesModal').on('show.bs.modal', function() {
+        var objectivesContent = '<%- ipoDetailsQuery.IpoDetail?.Objectives %>';
+        console.log("from objectivesSection",objectivesContent)
+        tinymce.get('objectivesSection').setContent(objectivesContent);
+      });
+    });
+  </script>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header d-flex">
+        <h3>Objectives</h3>
+
+        <% if(ipoDetailsQuery.isBeforeCutoffDate) {%>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#objectivesModal" style="height: 1%; margin-left: 2%;">
+          Edit
+        </button>
+        <label class="ml-auto" style="font-size: x-large; margin-top: 1.2%;" onclick="syncObjectives()">
+          <i class="fa fa-sync" style="border: none; color: blue; cursor: pointer;"></i>
+        </label>
+        <%}%>
+
+      </div>
+      <div class="card-body table-border-style">
+        <div class="table-responsive">
+          <%- ipoDetailsQuery.IpoDetail?.Objectives ? ipoDetailsQuery.IpoDetail?.Objectives : 'N/A' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="objectivesModal" tabindex="-1" role="dialog" aria-labelledby="objectivesModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="objectivesModalLabel">Edit Objectives</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/editor/editObjectiveSection" method="POST">
+            <input type="hidden" name="IpoId" value="<%= ipoDetailsQuery.IpoId %>">
+            <input type="hidden" name="IpoDetailId" value="<%= ipoDetailsQuery.IpoDetail?.IpoDetailId %>">
+            <textarea id="objectivesSection" class="tinymce-editor" name="objectivesSection"></textarea>
+            <div style="margin-top: 10px;">
+              <button type="submit">Submit</button>
+              <button type="button" onclick="cancelEdit('objectivesSection')">Cancel</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<!-- Loader -->
+  <%- include('../ui/loader.ejs') %>
+  <%- include('../ui/toaster.ejs') %>
+
+
+<script>
+async function syncObjectives() {
+  const loader = document.getElementById('loader');
+  loader.classList.remove('d-none');
+  const ipoDetails = {
+      IpoId: '<%= ipoDetailsQuery.IpoId %>',
+      ChitorName: '<%= ipoDetailsQuery.ChitorName %>',
+      ChitorId: '<%= ipoDetailsQuery.ChitorId %>',
+  };
+
+  try {
+      const response = await fetch('/scraper/syncObjectives', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(ipoDetails),
+      });
+
+      const result = await response.json();
+      if (response.status === 200) {        
+        renderToast('Sync successful', 'success');    
+        reloadFun()
+      } else {
+        renderToast(result.error || 'Sync failed', 'error');
+        console.log(`Sync failed: ${result.error || 'Unknown error'}`, 'error');
+      }
+  } catch (error) {
+      renderToast('Sync failed', 'error');
+  } finally {
+      loader.classList.add('d-none');
+  }
+}
+
+
+</script>
+
+<!--  -->
+</style>
+</html>

@@ -1,0 +1,219 @@
+<link rel="stylesheet" href="/public/css/forms/forms.css" type="text/css">
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#editReservation"
+  style="height: 1%; margin-left: 2%;"
+>
+  Edit
+</button>
+
+<div
+  class="modal fade"
+  id="editReservation"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="editDetailModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editDetailModalLabel">Edit Reservation</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          style="height: 1%; margin-left: 5%;"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form id="addIpoForm" action="/reservetion/update" method="POST">
+            
+            <input type="hidden" name="IpoId"value="<%= IpoData.IpoId %>">
+            <input type="hidden" name="ReservationId"value="<%= IpoData?.Reservation?.ReservationId %>">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="minimumPrice">Anchor Investor Shares Offered</label>
+                <input
+                  name="AnchorInvestorSharesOffer"
+                  value="<%- IpoData?.Reservation?.AnchorInvestorSharesOffer %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Anchor Investor Shares Offered"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="maximumPrice">QIB Shares Offered</label>
+                <input
+                  value="<%- IpoData?.Reservation?.QibSharesOffer %>"
+                  name="QibSharesOffer"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter QIB Shares Offered"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lotSize">NII Shares Offered</label>
+                <input
+                  name="NiiSharesOffer"
+                  value="<%- IpoData?.Reservation?.NiiSharesOffer %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter NII Shares Offered"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="totalIssueShares">BNII Shares Offer</label>
+                <input
+                  name="BniiSharesOffer"
+                  value="<%- IpoData?.Reservation?.BniiSharesOffer %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter total issue shares"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="totalIssuePrice">SNII Shares Offer</label>
+                <input
+                  name="SniiSharesOffer"
+                  value="<%- IpoData?.Reservation?.SniiSharesOffer %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter SNII Shares Offer"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="freshIssueShares">Retail Shares Offer</label>
+                <input
+                  name="RetailSharesOffer"
+                  value="<%- IpoData?.Reservation?.RetailSharesOffer %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Retail Shares Offer"
+                />
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            
+            <% if(IpoData?.Type == 2) { %>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="freshIssuePrice">Market Maker Shares Offered</label>
+                <input name="MarketMakersSharesOffer" 
+                  value="<%- IpoData?.Reservation?.MarketMakersSharesOffer %>" 
+                  type="number" 
+                  class="form-control" 
+                  placeholder="Enter Total Shares Offer"
+                />
+              </div>
+            </div>
+            <%}%>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="freshIssuePrice">Total Shares Offer</label>
+                <input
+                  name="TotalSharesOffer"
+                  value="<%- IpoData?.Reservation?.TotalSharesOffer %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Total Shares Offer"
+                />
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="totalIssuePrice">Bnii Maximum Allotment</label>
+                <input
+                  name="BniiMaximumAllotment"
+                  value="<%- IpoData?.Reservation?.BniiMaximumAllotment %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Bnii Maximum Allotment"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="freshIssueShares">Snii Maximum Allotment</label>
+                <input
+                  name="SniiMaximumAllotment"
+                  value="<%- IpoData?.Reservation?.SniiMaximumAllotment %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Snii Maximum Allotment"
+                />
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="totalIssuePrice">Retail Maximum Allotment</label>
+                <input
+                  name="RetailMaximumAllotment"
+                  value="<%- IpoData?.Reservation?.RetailMaximumAllotment %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Retail Maximum Allotment"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="freshIssueShares">Nii Maximum Allotment</label>
+                <input
+                  name="NiiMaximumAllotment"
+                  value="<%- IpoData?.Reservation?.NiiMaximumAllotment %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Nii Maximum Allotment"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

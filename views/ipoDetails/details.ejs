@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPO Details</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header d-flex">
+        <h3>Details</h3>
+        <% if(ipoDetailsQuery.isBeforeCutoffDate) {%>
+          
+        <%- include('../forms/editDetails.ejs', { IpoData: ipoDetailsQuery }) %>
+
+        <label class="ml-auto" style="font-size: x-large; margin-top: 1.2%;" onclick="syncIpoDetails()">
+          <i class="fa fa-sync" style="border: none; color: blue; cursor: pointer;"></i>
+        </label>
+        <%}%>
+      </div>
+      <div class="card-body table-border-style">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <tr>
+              <th>
+                Minimum Price </th>
+              <td id="MinimumPrice"><%- ipoDetailsQuery.IpoDetail?.MinimumPrice ? ipoDetailsQuery.IpoDetail?.MinimumPrice : 'N/A' %></td>
+            </tr>
+            <tr>
+              <th>
+                Maximum Price </th>
+              <td id="MaximumPrice"><%- ipoDetailsQuery.IpoDetail?.MaximumPrice ? ipoDetailsQuery.IpoDetail?.MaximumPrice : 'N/A' %></td>
+            </tr>
+            <tr>
+              <th>
+                Face Value </th>
+              <td id="FaceValue"><%- ipoDetailsQuery.IpoDetail?.FaceValue ? ipoDetailsQuery.IpoDetail?.FaceValue : 'N/A' %></td>
+            </tr>
+            <tr>
+              <th>
+                Lot Size </th>
+              <td id="LotSize"><%- ipoDetailsQuery.IpoDetail?.LotSize ? ipoDetailsQuery.IpoDetail?.LotSize : 'N/A' %></td>
+            </tr>
+
+            <tr>
+              <th>
+                Total Issue Shares </th>
+              <td id="TotalIssueShares"><%= ipoDetailsQuery.IpoDetail?.TotalIssueShares ? ipoDetailsQuery.IpoDetail?.TotalIssueShares.toLocaleString('en-IN') : 'N/A' %></td>
+            </tr>
+
+            <tr>
+              <th>
+                Total Issue Price </th>
+              <td id="TotalIssuePrice"><%- ipoDetailsQuery.IpoDetail?.TotalIssuePrice ? ipoDetailsQuery.IpoDetail?.TotalIssuePrice : 'N/A' %></td>
+            </tr>
+
+            <tr>
+              <th>
+                Fresh Issue Shares </th>
+              <td id="FreshIssueShares"><%- ipoDetailsQuery.IpoDetail?.FreshIssueShares ? ipoDetailsQuery.IpoDetail?.FreshIssueShares.toLocaleString('en-IN') : 'N/A' %></td>
+            </tr>
+
+            <tr>
+              <th>
+                Fresh Issue Price </th>
+              <td id="FreshIssuePrice"><%- ipoDetailsQuery.IpoDetail?.FreshIssuePrice ? ipoDetailsQuery.IpoDetail?.FreshIssuePrice : 'N/A' %></td>
+            </tr>
+
+            <tr>
+              <th>
+                Ofs Issue Shares </th>
+              <td id="OfsIssueShares"><%- ipoDetailsQuery.IpoDetail?.OfsIssueShares ? ipoDetailsQuery.IpoDetail?.OfsIssueShares.toLocaleString('en-IN') : 'N/A' %></td>
+            </tr>
+
+            <tr>
+              <th>
+                Ofs Issue Price </th>
+              <td id="OfsIssuePrice"><%- ipoDetailsQuery.IpoDetail?.OfsIssuePrice ? ipoDetailsQuery.IpoDetail?.OfsIssuePrice : 'N/A' %></td>
+            </tr>
+
+            <tr>
+              <th>
+                Share Holding Pre-Issue </th>
+              <td id="ShareHoldingPreIssue"><%- ipoDetailsQuery.IpoDetail?.ShareHoldingPreIssue ? ipoDetailsQuery.IpoDetail?.ShareHoldingPreIssue.toLocaleString('en-IN') : 'N/A' %></td>
+            </tr>
+
+            <tr>
+              <th>
+                Share Holding Post-Issue
+              </th>
+              <td id="ShareHoldingPostIssue"><%- ipoDetailsQuery.IpoDetail?.ShareHoldingPostIssue ? ipoDetailsQuery.IpoDetail?.ShareHoldingPostIssue.toLocaleString('en-IN') : 'N/A' %></td>
+            </tr>
+
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+
+<!-- Loader -->
+<%- include('../ui/loader.ejs') %>
+<%- include('../ui/toaster.ejs') %>
+
+
+<script>
+async function syncIpoDetails() {
+  const loader = document.getElementById('loader');
+  loader.classList.remove('d-none');
+  const ipoDetails = {
+      IpoId: '<%= ipoDetailsQuery.IpoId %>',
+      ChitorName: '<%= ipoDetailsQuery.ChitorName %>',
+      ChitorId: '<%= ipoDetailsQuery.ChitorId %>',
+      RetailQuota: '<%= ipoDetailsQuery.RetailQuota %>',
+      Type: '<%= ipoDetailsQuery.Type %>',
+      IpoType: '<%= ipoDetailsQuery.IpoDetail?.IpoType %>',
+
+  };
+
+  try {
+      const response = await fetch('/scraper/syncIpoDetails', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(ipoDetails),
+      });
+debugger
+      const result = await response.json();
+      if (response.status === 200) {        
+        renderToast('Sync successful', 'success');    
+        reloadFun()
+      } else {
+        renderToast(result.error || 'Sync failed', 'error');
+        console.log(`Sync failed: ${result.error || 'Unknown error'}`, 'error');
+      }
+  } catch (error) {
+      renderToast('Sync failed', 'error');
+  } finally {
+      loader.classList.add('d-none');
+  }
+}
+
+
+</script>
+
+</html>

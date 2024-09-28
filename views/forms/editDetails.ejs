@@ -1,0 +1,234 @@
+<link rel="stylesheet" href="/public/css/forms/forms.css" type="text/css">
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#editDetailModal"
+  style="height: 1%; margin-left: 2%;"
+>
+  Edit
+</button>
+
+<div
+  class="modal fade"
+  id="editDetailModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="editDetailModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editDetailModalLabel">Edit Detail</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          style="height: 1%; margin-left: 5%;"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addIpoForm" action="/ipoDetail/detailsController" method="POST">
+            
+            <input type="hidden" name="IpoId"value="<%= IpoData.IpoId %>">
+            <input type="hidden" name="IpoDetailId"value="<%= IpoData.IpoDetail?.IpoDetailId %>">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="minimumPrice">Minimum Price</label>
+                <input
+                  name="minimumPrice"
+                  value="<%- IpoData.IpoDetail?.MinimumPrice %>"
+                  type="number"
+                  class="form-control"
+                  id="minimumPrice"
+                  placeholder="Enter minimum price"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="maximumPrice">Maximum Price</label>
+                <input
+                  name="maximumPrice"
+                  value="<%- IpoData.IpoDetail?.MaximumPrice %>"
+                  type="number"
+                  class="form-control"
+                  id="maximumPrice"
+                  placeholder="Enter maximum price"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="freshIssuePrice">Face Value</label>
+                <input
+                  name="FaceValue"
+                  value="<%- IpoData.IpoDetail?.FaceValue %>"
+                  type="text"
+                  class="form-control"
+                  id="FaceValue"
+                  placeholder="Enter face value"
+                />
+              </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="lotSize">Lot Size</label>
+                  <input
+                    name="lotSize"
+                    value="<%- IpoData.IpoDetail?.LotSize %>"
+                    type="number"
+                    class="form-control"
+                    id="lotSize"
+                    placeholder="Enter lot size"
+                  />
+                </div>
+              </div>
+            
+        
+            </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="totalIssueShares">Total Issue Shares</label>
+                <input
+                  name="totalIssueShares"
+                  value="<%- IpoData.IpoDetail?.TotalIssueShares %>"
+                  type="number"
+                  class="form-control"
+                  id="totalIssueShares"
+                  placeholder="Enter total issue shares"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="totalIssuePrice">Total Issue Price</label>
+                <input
+                  name="totalIssuePrice"
+                  value="<%- IpoData.IpoDetail?.TotalIssuePrice %>"
+                  type="text"
+                  class="form-control"
+                  id="totalIssuePrice"
+                  placeholder="Enter total issue price"
+                />
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="freshIssueShares">Fresh Issue Shares</label>
+                <input
+                  name="freshIssueShares"
+                  value="<%- IpoData.IpoDetail?.FreshIssueShares %>"
+                  type="number"
+                  class="form-control"
+                  id="freshIssueShares"
+                  placeholder="Enter fresh issue shares"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="freshIssuePrice">Fresh Issue Price</label>
+                <input
+                  name="freshIssuePrice"
+                  value="<%- IpoData.IpoDetail?.FreshIssuePrice %>"
+                  type="text"
+                  class="form-control"
+                  id="freshIssuePrice"
+                  placeholder="Enter fresh issue price"
+                />
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+           
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="ofsIssueShares">OFS Issue Price</label>
+                <input
+                  name="ofsIssuePrice"
+                  value="<%- IpoData.IpoDetail?.OfsIssuePrice %>"
+                  type="text"
+                  class="form-control"
+                  id="ofsIssueShares"
+                  placeholder="Enter OFS issue price"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="ofsIssueShares">OFS Issue Shares</label>
+                <input
+                  name="ofsIssueShares"
+                  value="<%- IpoData.IpoDetail?.OfsIssueShares %>"
+                  type="text"
+                  class="form-control"
+                  id="ofsIssueShares"
+                  placeholder="Enter OFS issue shares"
+                />
+              </div>
+            </div>
+          </div>  
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="shareHoldingPreIssue">Share Holding Pre-Issue</label>
+                <input
+                  name="shareHoldingPreIssue"
+                  value="<%- IpoData.IpoDetail?.ShareHoldingPreIssue %>"
+                  type="number"
+                  class="form-control"
+                  id="shareHoldingPreIssue"
+                  placeholder="Enter share holding pre-issue"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="shareHoldingPostIssue">Share Holding Post-Issue</label>
+                <input
+                  name="shareHoldingPostIssue"
+                  value="<%- IpoData.IpoDetail?.ShareHoldingPostIssue %>"
+                  type="number"
+                  class="form-control"
+                  id="shareHoldingPostIssue"
+                  placeholder="Enter share holding post-issue"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

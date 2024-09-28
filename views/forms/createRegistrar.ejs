@@ -1,0 +1,117 @@
+<link rel="stylesheet" href="/public/css/forms/forms.css" type="text/css">
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#createMasterRegistrar"
+  style="height: 1%; margin-left: 2%;"
+>
+  Add
+</button>
+
+<div
+  class="modal fade"
+  id="createMasterRegistrar"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="editDetailModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editDetailModalLabel">Add Registrar</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          style="height: 1%; margin-left: 5%;"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/registar/create" method="POST">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="RegistrarName">Registrar Name</label>
+                <input
+                  name="RegistrarName"
+                  required
+                  type="text"
+                  class="form-control"                          
+                  placeholder="Enter Name"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="RegistrarPhone">Registrar Phone</label>
+                <input
+                  name="RegistrarPhone"
+                  
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Phone"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lotSize">Email</label>
+                <input
+                  name="RegistrarEmail"
+                  
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Email"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="RegistrarIpoEmail">Ipo Email</label>
+                <input
+                  name="RegistrarIpoEmail"
+                  
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Ipo Email"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lotSize">Website</label>
+                <input
+                  name="RegistrarWebsite"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Website"
+                />
+              </div>
+            </div>
+
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

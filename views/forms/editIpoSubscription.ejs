@@ -1,0 +1,253 @@
+<link rel="stylesheet" href="/public/css/forms/forms.css" type="text/css">
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#editIpoSubscriptionModal"
+  style="height: 1%; margin-left: 2%;"
+>
+  Edit
+</button>
+
+<div
+  class="modal fade"
+  id="editIpoSubscriptionModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="editDetailModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editDetailModalLabel">Edit Ipo Subscription</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          style="height: 1%; margin-left: 5%;"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addIpoForm" action="/ipoDetail/updateIpoSubscription" method="POST">
+            
+            <input type="hidden" name="IpoId"value="<%= IpoData.IpoId %>">
+            <input type="hidden" name="IpoSubscriptionId"value="<%= IpoData.IpoSubscription?.IpoSubscriptionId %>">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Retail Subscription</label>
+                <input
+                  name="RetailSubscription"
+                  value="<%- IpoData.IpoSubscription?.RetailSubscription %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Retail Subscription"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nii Subscription</label>
+                <input
+                  name="NiiSubscription"
+                  value="<%- IpoData.IpoSubscription?.NiiSubscription %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Nii Subscription"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="BniiSubscription">Bnii Subscription</label>
+                <input
+                  name="BniiSubscription"
+                  value="<%- IpoData.IpoSubscription?.BniiSubscription %>"
+                  type="number"
+                  class="form-control"
+                  id="BniiSubscription"
+                  placeholder="Enter Bnii Subscription"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="SniiSubscription">Snii Subscription</label>
+                <input
+                  name="SniiSubscription"
+                  value="<%- IpoData.IpoSubscription?.SniiSubscription %>"
+                  type="number"
+                  class="form-control"
+                  id="SniiSubscription"
+                  placeholder="Enter Snii Subscription"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="QibSubscription">Qib Subscription</label>
+                <input
+                  name="QibSubscription"
+                  value="<%- IpoData.IpoSubscription?.QibSubscription %>"
+                  type="text"
+                  class="form-control"
+                  id="QibSubscription"
+                  placeholder="Enter Qib Subscription"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="freshIssueShares">Employee Subscription</label>
+                <input
+                  name="EmployeeSubscription"
+                  value="<%- IpoData.IpoSubscription?.EmployeeSubscription %>"
+                  type="number"
+                  class="form-control"
+                  id="EmployeeSubscription"
+                  placeholder="Enter Employee Subscription"
+                />
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>ShareHolder Subscription</label>
+                <input
+                  name="ShareHolderSubscription"
+                  value="<%- IpoData.IpoSubscription?.ShareHolderSubscription %>"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter ShareHolder Subscription"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Retail Application</label>
+                <input
+                  name="RetailApplication"
+                  value="<%- IpoData.IpoSubscription?.RetailApplication %>"
+                  type="text"
+                  class="form-control"                
+                  placeholder="Enter Retail Application"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="NiiApplication">NiiApplication</label>
+                <input
+                  name="NiiApplication"
+                  value="<%- IpoData.IpoSubscription?.NiiApplication %>"
+                  type="text"
+                  class="form-control"
+                  id="NiiApplication"
+                  placeholder="Enter NiiApplication"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="QibApplication">Qib Application</label>
+                <input
+                  name="QibApplication"
+                  value="<%- IpoData.IpoSubscription?.QibApplication %>"
+                  type="text"
+                  class="form-control"
+                  id="QibApplication"
+                  placeholder="Enter Qib Application"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="EmployeeApplication">Employee Application</label>
+                <input
+                  name="EmployeeApplication"
+                  value="<%- IpoData.IpoSubscription?.EmployeeApplication %>"
+                  type="number"
+                  class="form-control"
+                  id="EmployeeApplication"
+                  placeholder="Enter Employee Application"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="ShareHolderApplication">ShareHolder Application</label>
+                <input
+                  name="ShareHolderApplication"
+                  value="<%- IpoData.IpoSubscription?.ShareHolderApplication %>"
+                  type="number"
+                  class="form-control"
+                  id="ShareHolderApplication"
+                  placeholder="Enter share ShareHolder Application"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="BniiApplication">Bnii Application</label>
+                <input
+                  name="BniiApplication"
+                  value="<%- IpoData.IpoSubscription?.BniiApplication %>"
+                  type="number"
+                  class="form-control"
+                  id="BniiApplication"
+                  placeholder="Enter Bnii Application"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="Snii Application">Snii Application</label>
+                <input
+                  name="Snii Application"
+                  value="<%- IpoData.IpoSubscription?.SniiApplication %>"
+                  type="number"
+                  class="form-control"
+                  id="SniiApplication"
+                  placeholder="Enter share Snii Application"
+                />
+              </div>
+            </div>
+            
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

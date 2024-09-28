@@ -1,0 +1,250 @@
+<link rel="stylesheet" href="/public/css/forms/forms.css" type="text/css">
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#myModal"
+>
+  Edit Ipo
+</button>
+
+<div
+  class="modal fade"
+  id="myModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Edit </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addIpoForm" action="/ipo/update" method="POST">
+            <input type="hidden" name="IpoId" value="<%- IpoData.IpoId %>">
+            <input type="hidden" name="IpoDetailId"value="<%= ipoDetailsQuery.IpoDetail?.IpoDetailId %>">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="companyName">Company Name <span class="text-danger" style="font-size: 1.50rem;">*</span></label>
+                <input
+                  name="companyName"
+                  value="<%- IpoData.CompanyName %>"
+                  type="text"
+                  class="form-control"
+                  id="companyName"
+                  placeholder="Enter company name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="displayName">Display Name <span class="text-danger" style="font-size: 1.50rem;">*</span></label>
+                <input
+                  name="displayName"
+                  value="<%- IpoData.DisplayName %>"
+                  type="text"
+                  class="form-control"
+                  id="displayName"
+                  placeholder="Enter display name"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="urlName">Url Name <span class="text-danger" style="font-size: 1.50rem;">*</span></label>
+                <input
+                  name="UrlName"
+                  value="<%- IpoData.UrlName %>"
+                  type="text"
+                  class="form-control"
+                  id="urlName"
+                  placeholder="Enter url name"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="symbols">Symbols</label>
+                <input
+                  name="symbols"
+                  value="<%- IpoData.Symbol %>"
+                  type="text"
+                  class="form-control"
+                  id="symbols"
+                  placeholder="Enter symbols"
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Issue Type</label>
+                <select name="IssueType" class="form-control">
+                  <option value="1" <%= IpoData.IssueType === 1 ? 'selected' : '' %>>IPO</option>
+                  <option value="2" <%= IpoData.IssueType === 2 ? 'selected' : '' %>>FPO</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="chittorName">Chittor Name</label>
+                <input
+                  name="chittorName"
+                  type="text"
+                  class="form-control"
+                  value="<%- IpoData.ChitorName %>"
+                  placeholder="Enter chittor name"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="type">Type</label>
+                <select name="Type" class="form-control" id="Type">
+                  <option value="1" <%= IpoData?.Type === 1 ? 'selected' : '' %>>Mainline</option>
+                  <option value="2" <%= IpoData?.Type === 2 ? 'selected' : '' %>>SME</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="chittorId">Ipo Type</label>
+                <select name="IpoType" class="form-control" id="IpoType">
+                  <option value="1" <%= IpoData.IpoDetail?.IpoType === 1 ? 'selected' : '' %>>Book built issue</option>
+                  <option value="2" <%= IpoData.IpoDetail?.IpoType === 2 ? 'selected' : '' %>>Fixed price issue</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exchanged">Exchanged</label>
+                <select name="exchanged" class="form-control" id="exchanged">
+                  <option value="1" <%= IpoData.Exchanged === 1 ? 'selected' : '' %>>NSE</option>
+                  <option value="2" <%= IpoData.Exchanged === 2 ? 'selected' : '' %>>BSE</option>
+                  <option value="3" <%= IpoData.Exchanged === 3 ? 'selected' : '' %>>BOTH</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="chittorId">Chittor Id</label>
+                <input
+                  name="chittorId"
+                  value="<%- IpoData.ChitorId %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter chittor id"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="premiumId">Premium Id</label>
+                <input
+                  name="premiumId"
+                  value="<%- IpoData.PremiumId %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter premium id"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inversterId">Inverster Id</label>
+                <input
+                  name="inversterId"
+                  value="<%- IpoData.InvestorId %>"
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter inverster Id"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="bseid">Bse Id </label>
+                <input
+                    name="bseid"
+                    value="<%- IpoData.BseId %>"
+                    type="number"
+                    class="form-control"
+                    placeholder="Enter chittor id"
+                />
+               </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Retail Quota</label>
+                <select name="RetailQuota" class="form-control" >
+                  <option value="1" <%= IpoData.RetailQuota === 1 ? 'selected' : '' %>>35 %</option>
+                  <option value="2" <%= IpoData.RetailQuota === 2 ? 'selected' : '' %>>10 %</option>
+
+                </select>
+              </div>
+          </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>FetchData</label>
+                <select name="FetchData" class="form-control" >
+                  <option value="1" <%= IpoData.FetchData === 1 ? 'selected' : '' %>>BSE</option>
+                  <option value="2" <%= IpoData.FetchData === 2 ? 'selected' : '' %>>NSE</option>
+                </select>
+              </div>
+          </div>
+
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function submitForm() {
+    document.getElementById('addIpoForm').submit();
+  }
+</script>
