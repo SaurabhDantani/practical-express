@@ -7,6 +7,8 @@ import dbUtils from './utils/db.utils';
 import * as routes from "./routes";
 import http from 'http'
 const port = 8080
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app: Express = express();
 const server = http.createServer(app);

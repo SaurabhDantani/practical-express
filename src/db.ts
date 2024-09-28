@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 
-import dotenv from 'dotenv';
 import { Users } from './models/Users';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const dbHost = process.env.DB_HOST;

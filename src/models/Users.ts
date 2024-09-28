@@ -7,17 +7,17 @@ export class Users {
   @PrimaryGeneratedColumn()
   Id: number;
 
-  @Column({ type: 'varchar', length: 100, nullable:true })
+  @Column({ type: 'varchar', length: 100, })
   FirstName: string;
 
   @Column({ type: 'varchar', length: 100, nullable:true })
   LastName: string;
 
   
-  @Column({ type: 'varchar', length: 100, nullable:true })
+  @Column({ type: 'varchar', length: 100, unique:true })
   EmailAddress: string;
 
-  @Column({ type: 'varchar', length: 255, nullable:true })
+  @Column({ type: 'varchar', length: 255, })
   Password: string;
 
   @BeforeInsert()
