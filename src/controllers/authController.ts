@@ -42,14 +42,15 @@ class AuthController {
   }
 
   async doLogin(req: Request, res: Response, next: NextFunction) {
-    const { email, password } = req.body;
+    const { Email, Password } = req.body;
+debugger
     try {
       const connection = await dbUtils.getDefaultConnection();
       const memberRepo = connection.getRepository(Users)
 
       const member = await memberRepo
         .createQueryBuilder('user')
-        .where('user.Email = :Email', { email })
+        .where('user.Email = :Email', { Email })
         .andWhere('user.Role = :Role', { Role: RoleEnum.Admin })
         .getOne();
 
@@ -61,7 +62,7 @@ class AuthController {
         return res.status(401).json({ message: 'Password not set' });
       }
 
-      const isPasswordValid = await bcrypt.compare(password, member.Password);
+      const isPasswordValid = await bcrypt.compare(Password, member.Password);
       if (!isPasswordValid) {
         return res.status(401).json({ message: 'Invalid password' });
       }
