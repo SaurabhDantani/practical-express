@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "start": "nodemon  dist/src/index.js",
+    "start": "nodemon  dist/index.js",
     "debug": "concurrently \"tsc -w\" \"npm run build\" \"nodemon --inspect dist/index.js\"",
     "clean": "rimraf dist",
     "tsc": "tsc",
@@ -15,7 +15,7 @@
     "migration:show": "npm run typeorm migration:show -- -d ./src/db.ts ",
     "migration:generate": "npm run typeorm migration:generate -- -d ./src/db.ts",
     "typeorm:create": "npm run typeorm migration:create ",
-    "deploy":"npm i && build"
+    "deploy":"npm i && npm run build"
   },
   "keywords": [],
   "author": "",
