@@ -24,12 +24,10 @@ class AuthController {
         return res.status(409).json({ message: 'Email Id exists' });
       }
 
-      const hashedPassword = await bcrypt.hash(Password, 10); // Hash the password
-
       const member = memberRepo.create({
         FirstName,
         LastName,
-        Password: hashedPassword,
+        Password: Password,
         Email,
         Role: currentRole,
       });
@@ -45,9 +43,8 @@ class AuthController {
 
   async doLogin(req: Request, res: Response, next: NextFunction) {
     const { Email, Password } = req.body;
-
+debugger
     try {
-      // const connection = AppDataSource.getRepository(Users);
       const connection = await dbUtils.getDefaultConnection();
       const memberRepo = connection.getRepository(Users)
 

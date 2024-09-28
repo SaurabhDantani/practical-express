@@ -14,7 +14,7 @@ class AuthRoute implements IRouting {
     });
 
     app.post(`${this.prefix}/login`, (req: Request, res: Response, next: express.NextFunction) => {
-      return AuthController.doRegistration(req, res, next);
+      return AuthController.doLogin(req, res, next);
     });
     
   }

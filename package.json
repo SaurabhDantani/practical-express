@@ -14,7 +14,8 @@
     "schema:sync": "npm run typeorm schema:sync -- -d ./src/db.ts ",
     "migration:show": "npm run typeorm migration:show -- -d ./src/db.ts ",
     "migration:generate": "npm run typeorm migration:generate -- -d ./src/db.ts",
-    "typeorm:create": "npm run typeorm migration:create "
+    "typeorm:create": "npm run typeorm migration:create ",
+    "deploy":"npm i && build"
   },
   "keywords": [],
   "author": "",

@@ -23,8 +23,8 @@ export class Users {
   @Column({ type: 'varchar', length: 100, })
   Role: string;
 
-  @Column({ type: 'boolean', length: 100, nullable:true})
-  IsVerify: false;
+  @Column({ type: 'bit', default: 0, nullable:true})
+  IsVerify: number;
 
   @BeforeInsert()
   async hashPassword() {
